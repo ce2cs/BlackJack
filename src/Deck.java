@@ -49,9 +49,11 @@ public class Deck {
 
              {
 
+
                     int index = rand.nextInt(deck.size());
 
                     tmp.add(deck.remove(index));
+
 
              }
 
@@ -119,7 +121,8 @@ public class Deck {
 
                     {
 
-                           if(deck.get(j).getName() < deck.get(min).getName())
+                           if(deck.get(j).getRank() < deck.get(min).getRank())
+
 
                                  min = j;
 
