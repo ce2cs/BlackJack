@@ -4,17 +4,17 @@ public class Card {
 
     private int suit;
 
-    private int name;
+    private int rank;
 
    
 
-    public Card(int suit, int name)
+    public Card(int suit, int rank)
 
     {
 
           this.suit = suit;
 
-          this.name= name;
+          this.rank= rank;
 
     }
 
@@ -30,11 +30,11 @@ public class Card {
 
    
 
-    public void setName(int name)
+    public void setName(int rank)
 
     {
 
-          this.name = name;
+          this.rank = rank;
 
     }
 
@@ -50,11 +50,11 @@ public class Card {
 
    
 
-    public int getName()
+    public int getRank()
 
     {
 
-          return name;
+          return rank;
 
     }
 
@@ -66,19 +66,19 @@ public class Card {
 
           String str="";
 
-          if(name >=2 && name <=10)
+          if(rank >=2 && rank <=10)
 
-                 str += name ;
+                 str += rank ;
 
-          else if(name == 1)
+          else if(rank == 1)
 
                  str = "Ace";
 
-          else if(name == 11)
+          else if(rank == 11)
 
                  str = "Jack";
 
-          else if(name == 12)
+          else if(rank == 12)
 
                  str = "Queen";
 
