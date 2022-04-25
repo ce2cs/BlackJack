@@ -43,15 +43,17 @@ public class Deck {
 
              ArrayList<Card> tmp = new ArrayList<Card>();
 
-             Random ran = new Random();
+             Random rand = new Random();
 
              while(!deck.isEmpty())
 
              {
 
-                    int ind = ran.nextInt(deck.size());
 
-                    tmp.add(deck.remove(ind));
+                    int index = rand.nextInt(deck.size());
+
+                    tmp.add(deck.remove(index));
+
 
              }
 
@@ -120,6 +122,7 @@ public class Deck {
                     {
 
                            if(deck.get(j).getRank() < deck.get(min).getRank())
+
 
                                  min = j;
 
