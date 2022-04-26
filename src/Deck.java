@@ -4,146 +4,113 @@ import java.util.Random;
 
 public class Deck {
 
-      
 
-       private ArrayList<Card> deck ;
+    protected ArrayList<Card> deck;
 
-      
 
-       public Deck()
+    public Deck() {
 
-       {
+        deck = new ArrayList<Card>();
 
+        for (int i = 1; i <= 4; i++) {
 
-             deck = new ArrayList<Card>();
+            for (int j = 1; j <= 13; j++) {
 
-             for(int i=1;i<=4;i++)
+                Card card = new Card(i, j);
 
-             {
+                deck.add(card);
 
-                    for(int j=1;j<=13;j++)
+            }
 
-                    {
+        }
 
-                           Card card =new Card(i,j);
+    }
 
-                           deck.add(card);
 
-                    }
+    public void shuffle() {
 
-             }
+        ArrayList<Card> tmp = new ArrayList<Card>();
 
-       }
+        Random rand = new Random();
 
-      
+        while (!deck.isEmpty()) {
 
-       public void shuffle()
 
-       {
+            int index = rand.nextInt(deck.size());
 
-             ArrayList<Card> tmp = new ArrayList<Card>();
+            tmp.add(deck.remove(index));
 
-             Random rand = new Random();
 
-             while(!deck.isEmpty())
+        }
 
-             {
 
+        deck = tmp;
 
-                    int index = rand.nextInt(deck.size());
+    }
 
-                    tmp.add(deck.remove(index));
 
+    public String toString() {
 
-             }
+        String str = "";
 
-            
+        for (int i = 0; i < deck.size(); i++)
 
-             deck = tmp;
+            str += deck.get(i).toString() + "\t";
 
-       }
+        return str;
 
-      
+    }
 
-       public String toString()
 
-       {
+    public void addCard(Card card) {
 
-             String str = "";
+        deck.add(card);
 
-             for(int i=0;i<deck.size();i++)
+    }
 
-                    str += deck.get(i).toString()+"\n";
 
-             return str;
+    public Card removeCard() {
 
-       }
+        if (!deck.isEmpty())
 
-      
+            return deck.remove(0);
 
-       public void addCard(Card card)
+        return null;
 
-       {
+    }
 
-             deck.add(card);
 
-       }
+    public void sort() {
 
-      
+        int min;
 
-       public Card removeCard()
+        for (int i = 0; i < deck.size() - 1; i++) {
 
-       {
+            min = i;
 
-             if(!deck.isEmpty())
+            for (int j = i + 1; j < deck.size(); j++) {
 
-                    return deck.remove(0);
+                if (deck.get(j).getRank() < deck.get(min).getRank())
 
-             return null;
 
-       }
+                    min = j;
 
-      
+            }
 
-       public void sort()
 
-       {
+            if (min != i) {
 
-             int min;
+                Card tmp = deck.remove(min);
 
-             for(int i=0;i<deck.size()-1;i++)
+                deck.add(i, tmp);
 
-             {
+                tmp = deck.remove(i + 1);
 
-                    min = i;
+                deck.add(tmp);
 
-                    for(int j=i+1;j<deck.size();j++)
+            }
 
-                    {
+        }
 
-                           if(deck.get(j).getRank() < deck.get(min).getRank())
-
-
-                                 min = j;
-
-                    }
-
-                   
-
-                    if(min != i)
-
-                    {
-
-                           Card tmp = deck.remove(min);
-
-                           deck.add(i, tmp);
-
-                           tmp = deck.remove(i+1);
-
-                           deck.add(tmp);
-
-                    }
-
-             }
-
-       }
+    }
+}

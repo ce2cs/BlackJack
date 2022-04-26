@@ -1,3 +1,5 @@
+import java.util.concurrent.TransferQueue;
+
 public class Card {
 
     
@@ -5,6 +7,8 @@ public class Card {
     private int suit;
 
     private int rank;
+
+    private boolean faceUp;
 
    
 
@@ -15,6 +19,8 @@ public class Card {
           this.suit = suit;
 
           this.rank= rank;
+
+          this.faceUp = true;
 
     }
 
@@ -63,7 +69,9 @@ public class Card {
     public String toString()
 
     {
-
+          if (!getFaceUp()) {
+              return "Hidden Card";
+          }
           String str="";
 
           if(rank >=2 && rank <=10)
@@ -112,4 +120,11 @@ public class Card {
 
     }
 
+    public boolean getFaceUp() {
+        return faceUp;
+    }
+
+    public void setFaceUp(boolean faceUp) {
+        this.faceUp = faceUp;
+    }
 }
