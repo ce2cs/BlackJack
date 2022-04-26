@@ -57,6 +57,24 @@ public class BlackJack {
         return false;
     }
 
+    void drawTable() {
+        System.out.println("Dealer's hand:");
+        System.out.print(dealerHand.drawDeck());
+        if (gameOver) {
+            if (dealerHand.getValue() == -1) {
+                System.out.println("Dealer's hand value: BUSTED");
+            } else {
+                System.out.println("Dealer's hand value: " + dealerHand.getValue());
+            }
+        }
+        System.out.println("Player's hand:");
+        System.out.print(playerHand.drawDeck());
+        if (playerHand.getValue() == -1) {
+            System.out.println("Player's hand value: BUSTED");
+        } else {
+            System.out.println("Player's hand value: " + playerHand.getValue());
+        }
+    }
     void printTable() {
         System.out.println("Dealer's hand: " + dealerHand.toString());
         if (gameOver) {
@@ -75,6 +93,9 @@ public class BlackJack {
     }
 
     void printResult() {
+        dealerHand.showOneCard();
+        drawTable();
+        System.out.println("\nGame result: ");
         if (playerHand.getValue() == -1) {
             System.out.println("Player busted!");
         } else if (dealerHand.getValue() == -1) {
@@ -86,8 +107,6 @@ public class BlackJack {
         } else {
             System.out.println("Tie!");
         }
-        dealerHand.showOneCard();
-        printTable();
     }
 
     public void setGameOver(boolean gameOver) {
@@ -97,16 +116,16 @@ public class BlackJack {
     public static void main(String[] args) {
         BlackJack game = new BlackJack();
         while (!game.checkAndSetGameOver()) {
-            game.printTable();
-            System.out.println("Hit or stand?");
+            game.drawTable();
+            System.out.println("[H]it or [S]tand?");
             Scanner input = new Scanner(System.in);
             String command = input.nextLine();
-            if (command.equals("hit")) {
+            if (command.equals("H")) {
                 game.hit();
-            } else if (command.equals("stand")) {
+            } else if (command.equals("S")) {
                 game.stand();
             } else {
-                System.out.println("Invalid input!");
+                System.out.println("Invalid input!, please input H or S");
             }
         }
         game.printResult();

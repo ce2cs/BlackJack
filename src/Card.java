@@ -1,4 +1,6 @@
-import java.util.concurrent.TransferQueue;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Card {
 
@@ -10,7 +12,9 @@ public class Card {
 
     private boolean faceUp;
 
-   
+    static String[] rankToPattern = {"#", "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
+
+    static char[] suitToPattern = {'#', '♣', '♦', '♥', '♠'};
 
     public Card(int suit, int rank)
 
@@ -36,7 +40,7 @@ public class Card {
 
    
 
-    public void setName(int rank)
+    public void setRank(int rank)
 
     {
 
@@ -126,5 +130,32 @@ public class Card {
 
     public void setFaceUp(boolean faceUp) {
         this.faceUp = faceUp;
+    }
+
+    public ArrayList<String> drawCard() {
+        ArrayList<String> pattern = new ArrayList<>();
+        String rankPattern;
+        char suitPattern;
+        if (getFaceUp()) {
+            rankPattern = rankToPattern[getRank()];
+            suitPattern = suitToPattern[getSuit()];
+        } else {
+            rankPattern = rankToPattern[0];
+            suitPattern = suitToPattern[0];
+        }
+        if (rankPattern.length() == 1) {
+            pattern.add("┌-------┐");
+            pattern.add("│ " + rankPattern + "     │");
+            pattern.add("│   " + suitPattern + "   │");
+            pattern.add("│     " + rankPattern + " │");
+            pattern.add("└-------┘");
+        } else {
+            pattern.add("┌-------┐");
+            pattern.add("│ " + rankPattern + "    │");
+            pattern.add("│   " + suitPattern + "   │");
+            pattern.add("│    " + rankPattern + " │");
+            pattern.add("└-------┘");
+        }
+        return pattern;
     }
 }

@@ -61,6 +61,25 @@ public class Deck {
 
     }
 
+    String drawDeck() {
+
+        String res = "";
+        ArrayList<String> pattern = new ArrayList<String>();
+        for (int i = 0; i < 5; i++) {
+            pattern.add("");
+        }
+        for (Card card : deck) {
+            ArrayList<String> oneCardPattern = card.drawCard();
+            for (int i = 0; i < 5; i++) {
+                pattern.set(i, pattern.get(i) + oneCardPattern.get(i) + '\t');
+            }
+        }
+        for (String str : pattern) {
+            res += str + '\n';
+        }
+        return res;
+    }
+
 
     public void addCard(Card card) {
 
