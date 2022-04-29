@@ -14,7 +14,13 @@ Written by @Boyang Gao, @Baoyan Li
 `BlackJack` is the main class of the game. It has a main method 
 and which controls the flow of the game. 
 2. `class Card`
+`Card` is the class that uses to define each card suit and rank, 
+including the hidden card(also with value) for dealer. And we 
+also made it how they look like when they are on a casino table.
 3. `class Deck`
+ `Deck` is a class that stores an ArrayList of Card objects.
+ `Deck` class have methods include Shuffle the cards in the deck, 
+ add and remove card from deck, and sort card in deck orderd by name.
 4. `class Hand`  
 `Hand` is the class that stores the cards of the player and dealer.
 `Hand` is inherited from `class Deck`. It has a method to evaluate the value
