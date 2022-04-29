@@ -5,9 +5,18 @@ public class BlackJack {
     private Hand playerHand;
     private Hand dealerHand;
     private boolean gameOver;
+    private int wins;
+    private int totalGames;
+    private String winner;
 
     BlackJack() {
         // Create a new deck
+        wins = 0;
+        totalGames = 0;
+        reset();
+    }
+
+    void reset() {
         deck = new Deck();
         playerHand = new Hand();
         dealerHand = new Hand();
@@ -23,6 +32,8 @@ public class BlackJack {
         playerHand.addCard(deck.removeCard());
         playerHand.addCard(deck.removeCard());
         setGameOver(false);
+        totalGames++;
+        System.out.println("Game " + totalGames + ":");
     }
 
     void hit() {
@@ -75,6 +86,7 @@ public class BlackJack {
             System.out.println("Player's hand value: " + playerHand.getValue());
         }
     }
+
     void printTable() {
         System.out.println("Dealer's hand: " + dealerHand.toString());
         if (gameOver) {
@@ -92,42 +104,78 @@ public class BlackJack {
         }
     }
 
+    void evaluateWinner() {
+        if (playerHand.getValue() == -1) {
+            winner = "Dealer";
+        } else if (dealerHand.getValue() == -1) {
+            winner = "Player";
+            wins++;
+        } else if (playerHand.getValue() == 21) {
+            winner = "Player";
+            wins++;
+        } else if (playerHand.getValue() > dealerHand.getValue()) {
+            winner = "Player";
+            wins++;
+        } else if (playerHand.getValue() < dealerHand.getValue()) {
+            winner = "Dealer";
+        } else {
+            winner = "Tie";
+        }
+    }
+
     void printResult() {
         dealerHand.showOneCard();
         drawTable();
         System.out.println("\nGame result: ");
-        if (playerHand.getValue() == -1) {
-            System.out.println("Player busted!");
-        } else if (dealerHand.getValue() == -1) {
-            System.out.println("Dealer busted!");
-        } else if (playerHand.getValue() > dealerHand.getValue()) {
-            System.out.println("Player wins!");
-        } else if (playerHand.getValue() < dealerHand.getValue()) {
-            System.out.println("Dealer wins!");
-        } else {
+        if (winner.equals("Tie")) {
             System.out.println("Tie!");
+        } else {
+            System.out.println(winner + " wins!");
         }
     }
 
     public void setGameOver(boolean gameOver) {
         this.gameOver = gameOver;
+        if (gameOver) {
+            evaluateWinner();
+        }
     }
 
     public static void main(String[] args) {
+        boolean playAgain = true;
+        Scanner input = new Scanner(System.in);
+        String command;
         BlackJack game = new BlackJack();
-        while (!game.checkAndSetGameOver()) {
-            game.drawTable();
-            System.out.println("[H]it or [S]tand?");
-            Scanner input = new Scanner(System.in);
-            String command = input.nextLine();
-            if (command.equals("H")) {
-                game.hit();
-            } else if (command.equals("S")) {
-                game.stand();
-            } else {
-                System.out.println("Invalid input!, please input H or S");
+        while (playAgain) {
+            while (!game.checkAndSetGameOver()) {
+                game.drawTable();
+                System.out.println("[H]it or [S]tand?");
+                command = input.nextLine();
+                if (command.equals("H")) {
+                    game.hit();
+                } else if (command.equals("S")) {
+                    game.stand();
+                } else {
+                    System.out.println("Invalid input!, please input H or S");
+                }
+            }
+            game.printResult();
+            while (true) {
+                System.out.println("[E]xit or [R]eset the game?");
+                command = input.nextLine();
+                if (command.equals("E")) {
+                    System.out.println("Good Bye!");
+                    playAgain = false;
+                    break;
+                } else if (command.equals("R")) {
+                    game.reset();
+                    break;
+                } else {
+                    System.out.println("Invalid input!, please input E or R");
+                }
             }
         }
-        game.printResult();
+
+        System.out.println("You won " + game.wins + " out of " + game.totalGames + " games!");
     }
 }
