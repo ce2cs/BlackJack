@@ -110,16 +110,11 @@ public class BlackJack {
         } else if (dealerHand.getValue() == -1) {
             winner = "Player";
             wins++;
-        } else if (playerHand.getValue() == 21 && dealerHand.getValue() < 21) {
-            winner = "Player";
-            wins++;
         } else if (playerHand.getValue() > dealerHand.getValue()) {
             winner = "Player";
             wins++;
         } else if (playerHand.getValue() < dealerHand.getValue()) {
             winner = "Dealer";
-        } else if (playerHand.getValue() == 21 && dealerHand.getValue() == 21){
-        	winner = "Tie";
         } else {
             winner = "Tie";
         }
